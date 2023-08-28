@@ -1,0 +1,39 @@
+{% extends 'index.html'%}
+
+
+{% block content %}
+<style>
+  .card-img-top {
+    object-fit: cover;
+    height: 200px; /* Adjust this value as needed */
+  }
+</style>
+<div class="container">
+    <h2 style="
+    margin-block: revert; font-family: fantasy;
+">Select The Hotel</h2>
+    <div style="margin-block: 41px;"  class="row">
+    {% for data in ho %}
+    <div class="col-md-4">
+        <div class="card mb-4 box-shadow"  style="
+        box-shadow: 1px 1px 12px 0px;
+    ">
+          <img class="card-img-top" src="/{{data.photo}}" alt="Product Image">
+          <div class="card-body">
+            <h4 class="card-title"></h4>
+            <h3 class="card-text">{{data.hotel_name}}</h3>
+            <p class="card-text"><h4>Price per day: ₹ {{data.rent_per_day}}</h4></p>
+            <p class="card-text">Room Available : {{data.number_of_rooms}}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <a href="/hotel_details/{{data.id}}" ><button type="button" class="btn btn-warning">Book Rooms</button></a>
+              <h5></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+
+    </div>
+</div>
+    {% endblock content %}

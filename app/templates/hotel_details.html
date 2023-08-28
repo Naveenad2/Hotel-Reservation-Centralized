@@ -1,0 +1,74 @@
+{% extends 'index.html'%}
+{% block content %}
+  <style>
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 1000px;
+      margin: auto;
+      font-family: Arial, sans-serif;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      float: left;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container py-5">
+    <div class="card">
+      <img src="/{{ho.photo}}" class="card-img" alt="Hotel Photo">
+      <div class="card-body">
+        <h3 class="card-title">{{ho.hotel_name}}</h3>
+        <p class="card-text">Location: {{ho.Select_location.location_name}}</p>
+        <p class="card-text">Rate per day: {{ho.rent_per_day}}</p>
+
+        <form method="POST" action="/booking">
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="start-date">Start Date:</label>
+            <input name="sdate" type="date" class="form-control" id="start-date" required onchange="calculateDays()">
+          </div>
+          <div class="form-group">
+            <label for="end-date">End Date:</label>
+            <input name="edate" type="date" class="form-control" id="end-date" required onchange="calculateDays()">
+          </div>
+          
+          <div class="form-group">
+            <label for="num-days">Number of Days:</label>
+            <input name="days" type="number" class="form-control" id="num-days" min="1" required >
+          </div>
+          <div class="form-group">
+            <label for="num-days">Total Amount</label>
+            <input name="rupees" type="number" class="form-control" id="num-rupees" min="1" required >
+            <input name="id" type="number" class="form-control" id="num-rupees" value="{{ho.id}}" style="visibility: hidden;" >
+          </div>
+
+          <button type="submit" class="btn btn-primary">Book Now</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script>
+    function calculateDays() {
+      const startDate = new Date(document.getElementById('start-date').value);
+      const endDate = new Date(document.getElementById('end-date').value);
+      const timeDiff = endDate.getTime() - startDate.getTime();
+      const numDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      const rupees = numDays*"{{ho.rent_per_day}}";
+      document.getElementById('num-rupees').value = rupees;
+
+      document.getElementById('num-days').value = numDays;
+    }
+  </script>
+  {% endblock content %}

@@ -1,0 +1,43 @@
+{% extends 'index.html'%}
+
+
+{% block content %}
+<style>
+  .card-img-top {
+    object-fit: cover;
+    height: 200px; /* Adjust this value as needed */
+  }
+</style>
+<div class="container">
+    <h2 style="
+    margin-block: revert; font-family: fantasy;
+">My Bookings</h2>
+    <div style="margin-block: 41px;"  class="row">
+    {% for data in ho %}
+    <div class="col-md-4">
+        <div class="card mb-4 box-shadow"  style="
+        box-shadow: 1px 1px 12px 0px;
+    ">
+          <img class="card-img-top" src="/{{data.hotel.photo}}" alt="Product Image">
+          <div class="card-body">
+            <h4 class="card-title"></h4>
+            <h3 class="card-text">{{data.hotel.hotel_name}}</h3>
+            <p class="card-text"><h4>Total amount : ₹ {{data.total_amount_paid}}</h4></p>
+            <p class="card-text">Start date : {{data.start_date}}</p>
+            <p class="card-text">End date : {{data.end_date}}</p>
+
+            <p class="card-text">Number Of Days : {{data.number_of_days}}</p>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <a href="/delete_my_bookings/{{data.id}}" ><button type="button" class="btn btn-danger">Delete Booking</button></a>
+              <h5></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+
+    </div>
+</div>
+    {% endblock content %}

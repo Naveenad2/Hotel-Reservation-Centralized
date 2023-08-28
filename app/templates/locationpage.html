@@ -1,0 +1,35 @@
+{% extends 'index.html'%}
+{% block content %}
+<style>
+  .card-img-top {
+    object-fit: cover;
+    height: 200px; /* Adjust this value as needed */
+  }
+</style>
+
+<div class="container"><h2 style="
+    margin-block: revert; font-family: fantasy;
+">Select The Location</h2>
+  <div style="margin-block: 41px;" class="row">
+    {% for data in loc %}
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow " style="
+        box-shadow: 1px 1px 12px 0px;
+    ">
+          
+          <img class="card-img-top" src="/{{data.photo}}" alt="Product Image">
+          <div class="card-body">
+            <h4 class="card-title"></h4>
+            <h3 class="card-text">{{data.location_name}}</h3>
+            <p class="card-text">Pin Number: {{data.pin}}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <a href="/view_hotel/{{data.id}}"><button type="button" class="btn btn-warning">View Location</button></a>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
